@@ -1,0 +1,102 @@
+﻿
+@using TopCovidCases.Models;
+@model Tuple<List<RegionsSelectModel>, List<ReportsModel>>
+
+
+@{
+    ViewBag.Title = "Index";
+
+}
+@using (Html.BeginForm("Index", "Report", FormMethod.Post))
+{
+
+    <div class="mb-3">
+
+        <h3>TOP 10 COVID Cases</h3>
+        <hr />
+        <div>
+
+            <select class="select" id="regionSelect" name="ddl_provincia">
+                @foreach (var item in Model.Item1)
+                {
+                    if (@item.selected)
+                    {
+                        <option selected value="@item.name">@item.name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.name">@item.name</option>
+                    }
+
+                }
+            </select>
+
+            <input type="submit" class="btn btn-success" value="Report">
+            <div class="export btn-group" role="group" aria-label="Upload" style="align-items:end">
+                <input type="button" id="toXml" class="btn btn-primary" value="XML"/>
+                <input type="button" id="toJson" class="btn btn-primary" value="JSON" />
+                <input type="button" id="toCsv" class="btn btn-primary" value="CSV" />
+            </div>
+        </div>
+        <hr />
+        <table id="reportTable" class="table" data-tableName="Test Table 2">
+            <thead>
+                <tr class="noExport">
+                    @{
+
+                        if ((bool)ViewData["cambiar"])
+                        {
+                            <th>PROVINCE</th>
+                        }
+                        else
+                        {
+                            <th>REGION</th>
+                        }
+                    }
+
+                    <th>CASES</th>
+                    <th>DEATHS</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+
+                    if ((bool)ViewData["cambiar"])
+                    {
+                        foreach (var item in Model.Item2)
+                        {
+                            <tr>
+
+                                <td>@item.Region.Province</td>
+                                <td>@item.Confirmed</td>
+                                <td>@item.Deaths</td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        foreach (var item in Model.Item2)
+                        {
+                            <tr>
+
+                                <td>@item.Region.Name</td>
+                                <td>@item.Confirmed</td>
+                                <td>@item.Deaths</td>
+
+                            </tr>
+                        }
+                    }
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+}
+
+<script src="~/Scripts/exportScript.js" type="text/javascript"></script>
+
+
+
+

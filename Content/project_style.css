@@ -1,0 +1,15 @@
+﻿.export {
+    float: right;
+}
+
+.select {
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+hr{
+    color: black;
+    border-color: black;
+}
